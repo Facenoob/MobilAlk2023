@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "177476382700",
+    "project_id": "fakeneptun2023",
+    "storage_bucket": "fakeneptun2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177476382700:android:0b5f551b8b6b3bb676dac9",
+        "android_client_info": {
+          "package_name": "hu.polnik.adam.fakeneptun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "177476382700-0dgp2hmvc30fqammr9cv9ek6l9j8nejb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hu.polnik.adam.fakeneptun",
+            "certificate_hash": "58783910d9dec246d2a2f706ddea0f1e029b74c1"
+          }
+        },
+        {
+          "client_id": "177476382700-ot5eq656hm9ddgmf6n0asglef9od883t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgvMJUnXVXhG0FoeqZb-p7vlMI5y7YSm8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "177476382700-ot5eq656hm9ddgmf6n0asglef9od883t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
