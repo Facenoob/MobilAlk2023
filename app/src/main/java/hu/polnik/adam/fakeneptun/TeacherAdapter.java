@@ -43,7 +43,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
         holder.bindTo(currentTeacher);
 
 
-        if(holder.getAdapterPosition() > lastPosition) {
+        if (holder.getAdapterPosition() > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.slide_in_row);
             holder.itemView.startAnimation(animation);
             lastPosition = holder.getAdapterPosition();
@@ -55,10 +55,6 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
         return mTeacherData.size();
     }
 
-
-    /**
-     * RecycleView filter
-     * **/
     @Override
     public Filter getFilter() {
         return teacherFilter;
@@ -70,13 +66,13 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
             ArrayList<Teacher> filteredList = new ArrayList<>();
             FilterResults results = new FilterResults();
 
-            if(charSequence == null || charSequence.length() == 0) {
+            if (charSequence == null || charSequence.length() == 0) {
                 results.count = mTeacherDataAll.size();
                 results.values = mTeacherDataAll;
             } else {
                 String filterPattern = charSequence.toString().toLowerCase().trim();
-                for(Teacher item : mTeacherDataAll) {
-                    if(item.getName().toLowerCase().contains(filterPattern)){
+                for (Teacher item : mTeacherDataAll) {
+                    if (item.getName().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }
@@ -90,14 +86,13 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
 
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            mTeacherData = (ArrayList)filterResults.values;
+            mTeacherData = (ArrayList) filterResults.values;
             notifyDataSetChanged();
         }
     };
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        // Member Variables for the TextViews
         private TextView mTitleText;
         private TextView mInfoText;
         private TextView mPriceText;
@@ -115,16 +110,16 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
             mPriceText = itemView.findViewById(R.id.price);
         }
 
-        void bindTo(Teacher currentTeacher){
+        void bindTo(Teacher currentTeacher) {
             mTitleText.setText(currentTeacher.getName());
             mInfoText.setText(currentTeacher.getInfo());
             mPriceText.setText(currentTeacher.getOrganization());
             mRatingBar.setRating(currentTeacher.getRateInfo());
 
             // Load the images into the ImageView using the Glide library.
-            itemView.findViewById(R.id.add_to_cart).setOnClickListener(view -> ((StudentActivity)mContext).upRateTeacher(currentTeacher));
-            itemView.findViewById(R.id.downrate).setOnClickListener(view -> ((StudentActivity)mContext).downRateTeacher(currentTeacher));
-            itemView.findViewById(R.id.delete).setOnClickListener(view -> ((StudentActivity)mContext).deleteTeacher(currentTeacher));
+            itemView.findViewById(R.id.add_to_cart).setOnClickListener(view -> ((StudentActivity) mContext).upRateTeacher(currentTeacher));
+            itemView.findViewById(R.id.downrate).setOnClickListener(view -> ((StudentActivity) mContext).downRateTeacher(currentTeacher));
+            itemView.findViewById(R.id.delete).setOnClickListener(view -> ((StudentActivity) mContext).deleteTeacher(currentTeacher));
             Glide.with(mContext).load(currentTeacher.getImageResource()).into(mItemImage);
 
         }

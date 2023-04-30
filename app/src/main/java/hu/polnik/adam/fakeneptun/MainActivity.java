@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getName();
     private static final String PREF_KEY = MainActivity.class.getPackage().toString();
     private static final int RC_SIGN_IN = 123;
-    // private static final int SECRET_KEY = 99;
 
     EditText userNameET;
     EditText passwordET;
@@ -61,16 +60,13 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d(LOG_TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
                 Log.w(LOG_TAG, "Google sign in failed", e);
             }
         }
@@ -83,11 +79,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(LOG_TAG, "signInWithCredential:success");
                             goStudent();
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(LOG_TAG, "signInWithCredential:failure", task.getException());
                         }
                     }
@@ -97,13 +91,10 @@ public class MainActivity extends AppCompatActivity {
     public void login(View view) {
         String userName = userNameET.getText().toString();
         String password = passwordET.getText().toString();
-
-        // Log.i(LOG_TAG, "Bejelentkezett: " + userName + ", jelszó: " + password);
-
         mAuth.signInWithEmailAndPassword(userName, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Log.d(LOG_TAG, "Login done!");
                     goStudent();
                 } else {
@@ -117,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth.signInAnonymously().addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Log.d(LOG_TAG, "Login as guest done!");
                     goStudent();
                 } else {
@@ -132,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    private void goStudent(){
+    private void goStudent() {
         Intent intent = new Intent(this, FunctionActivity.class);
         startActivity(intent);
     }

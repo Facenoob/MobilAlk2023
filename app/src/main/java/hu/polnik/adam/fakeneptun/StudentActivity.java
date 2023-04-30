@@ -35,9 +35,6 @@ public class StudentActivity extends AppCompatActivity {
     private static final String LOG_TAG = StudentActivity.class.getName();
     private static final String PREF_KEY = MainActivity.class.getPackage().toString();
     private FirebaseUser user;
-
-    private FrameLayout redCircle;
-    private TextView countTextView;
     private int cartItems = 0;
     private int gridNumber = 1;
     private Integer teacherLimit = 10;
@@ -68,20 +65,10 @@ public class StudentActivity extends AppCompatActivity {
             finish();
         }
 
-        // preferences = getSharedPreferences(PREF_KEY, MODE_PRIVATE);
-        // if(preferences != null) {
-        //     cartItems = preferences.getInt("cartItems", 0);
-        //     gridNumber = preferences.getInt("gridNum", 1);
-        // }
-
-        // recycle view
         mRecyclerView = findViewById(R.id.recyclerView);
-        // Set the Layout Manager.
         mRecyclerView.setLayoutManager(new GridLayoutManager(
                 this, gridNumber));
-        // Initialize the ArrayList that will contain the data.
         mItemsData = new ArrayList<>();
-        // Initialize the adapter and set it to the RecyclerView.
         mAdapter = new TeacherAdapter(this, mItemsData);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -93,7 +80,7 @@ public class StudentActivity extends AppCompatActivity {
         filter.addAction(Intent.ACTION_POWER_CONNECTED);
         filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
         this.registerReceiver(powerReceiver, filter);
-        notificationHandler=new NotificationHandler(this);
+        notificationHandler = new NotificationHandler(this);
 
     }
 
@@ -150,7 +137,6 @@ public class StudentActivity extends AppCompatActivity {
         TypedArray teacherImageResources =
                 getResources().obtainTypedArray(R.array.teacher_images);
         TypedArray teacherRate = getResources().obtainTypedArray(R.array.teacher_rates);
-        String[] rateInNumber = getResources().getStringArray(R.array.teacher_rates);
 
         for (int i = 0; i < teahcherNames.length; i++) {
             mTeachers.add(new Teacher(
@@ -160,8 +146,6 @@ public class StudentActivity extends AppCompatActivity {
                     teacherRate.getFloat(i, 0),
                     teacherImageResources.getResourceId(i, 0)));
         }
-
-        // Recycle the typed array.
         teacherImageResources.recycle();
     }
 
@@ -231,12 +215,17 @@ public class StudentActivity extends AppCompatActivity {
     }
 
     public void upRateTeacher(Teacher teacher) {
-        mTeachers.document(teacher._getId()).update("rateInfo", teacher.getRateInfo() + 0.2).addOnFailureListener(fail ->{Toast.makeText(this,"Rate cannot be updated",Toast.LENGTH_LONG).show();});
+        mTeachers.document(teacher._getId()).update("rateInfo", teacher.getRateInfo() + 0.2).addOnFailureListener(fail -> {
+            Toast.makeText(this, "Rate cannot be updated", Toast.LENGTH_LONG).show();
+        });
         notificationHandler.send("Na jó kegyelem kettes XD");
         queryData();
     }
+
     public void downRateTeacher(Teacher teacher) {
-        mTeachers.document(teacher._getId()).update("rateInfo", teacher.getRateInfo() - 0.2).addOnFailureListener(fail ->{Toast.makeText(this,"Rate cannot be updated",Toast.LENGTH_LONG).show();});
+        mTeachers.document(teacher._getId()).update("rateInfo", teacher.getRateInfo() - 0.2).addOnFailureListener(fail -> {
+            Toast.makeText(this, "Rate cannot be updated", Toast.LENGTH_LONG).show();
+        });
         notificationHandler.send("Szerintem bukta van!");
         queryData();
     }
